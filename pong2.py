@@ -130,36 +130,28 @@ while True:
         ball.sety(-280)
         ball.dy *= -1
     # TODO: fix name attribute copy this: scoreboard.write("{}: {} {}: {}".format(p1.name, p1.score, p2.name, p2.score), align="center", font=("Courier", 20, "normal"))
-    #left and right
-    if (ball.xcor() < -340 and ball.xcor() > -350) and (paddle_1.ycor() + 50 > ball.ycor() > paddle_1.ycor() - 50):
-        p1.score += 1
-        scoreboard.clear()
-        scoreboard.write("{}: {} {}: {}".format(p1.name, p1.score, p2.name, p2.score), align="center", font=("Courier", 20, "normal"))
-    if ball.xcor() > 380:
-        score_a = 0
-        scoreboard.clear()
-        scoreboard.write("Player A: {} Player B: {}".format(p1.score, p2.score), align="center", font=("Courier", 20, "normal"))
-        ball.goto(0, 0)
-        ball.dx *= -1
+    # paddle a and paddle b
 
-
-    if (ball.xcor() > 340 and ball.xcor() < 350) and (paddle_2.ycor() + 50 > ball.ycor() > paddle_2.ycor() - 50):
-        p2.score += 1
-        scoreboard.clear()
-        scoreboard.write("Player A: {} Player B: {}".format(p1.score, p2.score), align="center", font=("Courier", 20, "normal"))
+    # paddle b scores ball behind paddle_a
     if ball.xcor() < -380:
-        p2.score = 0
-        scoreboard.clear()
-        scoreboard.write("Player A: {} Player B: {}".format(p1.score, p2.score), align="center", font=("Courier", 20, "normal"))
-        ball.goto(0, 0)
+        print(p2.name, " has scored! Current score: ", p2.score )
+        p2.score += 1
+        ball.goto(0, 0) # reset ball to origo
         ball.dx *= -1
+
+        scoreboard.clear()
+        scoreboard.write("{}: {}    {}: {}".format(p1.name, p1.score, p2.name, p2.score), align="center",
+                         font=("Arial", 24, "bold"))
 
 
     # paddle and ball collisions
-    if (ball.xcor() > 340 and ball.xcor() < 350) and (paddle_2.ycor() + 50 > ball.ycor() > paddle_2.ycor() - 50):
-        ball.setx(340)
-        ball.dx *= -1
 
     if (ball.xcor() < -340 and ball.xcor() > -350) and (paddle_1.ycor() + 50 > ball.ycor() > paddle_1.ycor() - 50):
         ball.setx(-340)
         ball.dx *= -1
+        print('a')
+
+    if (ball.xcor() > 340 and ball.xcor() < 350) and (paddle_2.ycor() + 50 > ball.ycor() > paddle_2.ycor() - 50):
+        ball.setx(340)
+        ball.dx *= -1
+        print(p2.name, " hits the ball...")
